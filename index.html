@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Комбинаторика — Калкулатор & Учебник</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-symbol">∑</span>
+        <span class="logo-text">Комбинаторика</span>
+      </div>
+      <nav class="tab-nav" role="tablist">
+        <button class="tab-btn active" role="tab" data-tab="calculator" aria-selected="true">
+          <span class="tab-icon">⌥</span> Калкулатор
+        </button>
+        <button class="tab-btn" role="tab" data-tab="theory" aria-selected="false">
+          <span class="tab-icon">📖</span> Учебник
+        </button>
+        <button class="tab-btn" role="tab" data-tab="practice" aria-selected="false">
+          <span class="tab-icon">✏️</span> Задачи
+        </button>
+      </nav>
+      <div class="progress-pill" id="global-progress" title="Общ прогрес">
+        <span id="progress-fraction">0/39</span>
+        <div class="progress-mini-bar"><div class="progress-mini-fill" id="progress-mini-fill"></div></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- ==================== CALCULATOR TAB ==================== -->
+    <section class="tab-panel active" id="tab-calculator" role="tabpanel">
+      <div class="panel-header">
+        <h1 class="panel-title">Калкулатор</h1>
+        <p class="panel-subtitle">Изчисли пермутации, комбинации и вариации стъпка по стъпка.</p>
+      </div>
+
+      <div class="calc-layout">
+        <div class="calc-left">
+          <div class="mode-selector" role="group" aria-label="Вид изчисление">
+            <button class="mode-btn active" data-mode="P">
+              <span class="mode-letter">P</span>
+              <span class="mode-name">Пермутации</span>
+            </button>
+            <button class="mode-btn" data-mode="C">
+              <span class="mode-letter">C</span>
+              <span class="mode-name">Комбинации</span>
+            </button>
+            <button class="mode-btn" data-mode="V">
+              <span class="mode-letter">V</span>
+              <span class="mode-name">Вариации</span>
+            </button>
+          </div>
+
+          <div class="formula-display" id="calc-formula">
+            <span class="formula-text" id="formula-text">P(n) = n!</span>
+          </div>
+
+          <div class="definition-box" id="calc-definition">
+            Наредби на <strong>всички n елемента</strong> — редът има значение, всеки елемент се използва точно веднъж.
+          </div>
+
+          <div class="inputs-group">
+            <div class="input-field">
+              <label for="inp-n">n — общ брой елементи</label>
+              <input type="number" id="inp-n" min="0" max="20" value="5" autocomplete="off" />
+              <span class="input-hint">цяло число от 0 до 20</span>
+            </div>
+            <div class="input-field" id="k-field" style="display:none;">
+              <label for="inp-k">k — колко избираме</label>
+              <input type="number" id="inp-k" min="0" max="20" value="3" autocomplete="off" />
+              <span class="input-hint">трябва k ≤ n</span>
+            </div>
+          </div>
+
+          <button class="calc-btn" id="calc-go">Изчисли →</button>
+        </div>
+
+        <div class="calc-right">
+          <div class="result-card" id="result-card">
+            <div class="result-label" id="result-label">P(5)</div>
+            <div class="result-number" id="result-number">120</div>
+            <div class="result-reading" id="result-reading">Пет елемента могат да се наредят по <strong>120</strong> различни начина.</div>
+          </div>
+
+          <div class="steps-card" id="steps-card">
+            <div class="steps-header" id="steps-toggle" tabindex="0" role="button" aria-expanded="false">
+              <span>Стъпки на изчислението</span>
+              <span class="chevron" id="steps-chevron">▾</span>
+            </div>
+            <div class="steps-body" id="steps-body" hidden>
+              <ol class="steps-list" id="steps-list"></ol>
+            </div>
+          </div>
+
+          <div class="history-card" id="history-card">
+            <div class="history-title">История</div>
+            <div class="history-list" id="history-list">
+              <div class="history-empty">Все още няма изчисления.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THEORY TAB ==================== -->
+    <section class="tab-panel" id="tab-theory" role="tabpanel" hidden>
+      <div class="panel-header">
+        <h1 class="panel-title">Учебник</h1>
+        <p class="panel-subtitle">Научи теорията с примери от реалния живот.</p>
+      </div>
+
+      <div class="theory-nav">
+        <button class="theory-pill active" data-theory="P">Пермутации</button>
+        <button class="theory-pill" data-theory="C">Комбинации</button>
+        <button class="theory-pill" data-theory="V">Вариации</button>
+      </div>
+
+      <!-- PERMUTATIONS -->
+      <div class="theory-section active" id="theory-P">
+        <div class="theory-card">
+          <div class="theory-badge badge-P">P</div>
+          <h2 class="theory-heading">Пермутации</h2>
+          <p class="theory-lead">Пермутацията е наредба на <em>всички</em> елементи от дадено множество, при която <strong>редът има значение</strong>.</p>
+
+          <div class="formula-block">
+            <div class="formula-big">P(n) = n!</div>
+            <div class="formula-exp">n! = n × (n−1) × (n−2) × … × 2 × 1</div>
+          </div>
+
+          <div class="theory-section-label">Кога използваме?</div>
+          <p>Когато трябва да <strong>наредим всички елементи</strong> и искаме да знаем по колко начина може да стане.</p>
+
+          <div class="examples-grid">
+            <div class="example-card">
+              <div class="example-icon">🏆</div>
+              <div class="example-title">Подиум</div>
+              <div class="example-body">5 отбора се борят за 1-во, 2-ро и 3-то място — но всъщност ги наредждаме всичките 5. P(5) = 120 начина.</div>
+            </div>
+            <div class="example-card">
+              <div class="example-icon">📚</div>
+              <div class="example-title">Рафт с книги</div>
+              <div class="example-body">4 различни книги на рафт — по колко начина може да ги наредим? P(4) = 24 начина.</div>
+            </div>
+            <div class="example-card">
+              <div class="example-icon">🎵</div>
+              <div class="example-title">Плейлист</div>
+              <div class="example-body">6 песни в плейлист — колко различни реда на изпълнение има? P(6) = 720 начина.</div>
+            </div>
+          </div>
+
+          <div class="theory-section-label">Визуален пример — P(3)</div>
+          <div class="visual-tree" id="tree-P">
+            <div class="tree-intro">Колко начина да наредим А, Б, В?</div>
+            <div class="tree-rows">
+              <div class="tree-row">
+                <div class="tree-node root-node">Старт</div>
+              </div>
+              <div class="tree-row">
+                <div class="tree-node mid-node">А…</div>
+                <div class="tree-node mid-node">Б…</div>
+                <div class="tree-node mid-node">В…</div>
+              </div>
+              <div class="tree-row">
+                <div class="tree-node leaf">АБВ</div>
+                <div class="tree-node leaf">АВБ</div>
+                <div class="tree-node leaf">БАВ</div>
+                <div class="tree-node leaf">БВА</div>
+                <div class="tree-node leaf">ВАБ</div>
+                <div class="tree-node leaf">ВБА</div>
+              </div>
+            </div>
+            <div class="tree-result">P(3) = 3! = 6 наредби</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMBINATIONS -->
+      <div class="theory-section" id="theory-C" hidden>
+        <div class="theory-card">
+          <div class="theory-badge badge-C">C</div>
+          <h2 class="theory-heading">Комбинации</h2>
+          <p class="theory-lead">Комбинацията е избор на <em>k елемента</em> от n, при която <strong>редът няма значение</strong> — важно е само кои са избрани.</p>
+
+          <div class="formula-block">
+            <div class="formula-big">C(n, k) = n! / (k! · (n−k)!)</div>
+            <div class="formula-exp">Чете се „n над k" или „n по k"</div>
+          </div>
+
+          <div class="theory-section-label">Кога използваме?</div>
+          <p>Когато <strong>избираме група</strong> обекти и не ни интересува в какъв ред са — само кои са вътре.</p>
+
+          <div class="examples-grid">
+            <div class="example-card">
+              <div class="example-icon">🍕</div>
+              <div class="example-title">Пица с добавки</div>
+              <div class="example-body">10 налични добавки, избираш 3. Редът не е важен — C(10,3) = 120 варианта.</div>
+            </div>
+            <div class="example-card">
+              <div class="example-icon">⚽</div>
+              <div class="example-title">Отбор</div>
+              <div class="example-body">От 15 играча избираш 11 за мача. C(15,11) = 1365 различни отбора.</div>
+            </div>
+            <div class="example-card">
+              <div class="example-icon">🃏</div>
+              <div class="example-title">Карти</div>
+              <div class="example-body">От 52 карти теглиш 5. C(52,5) = 2 598 960 различни ръце.</div>
+            </div>
+          </div>
+
+          <div class="theory-section-label">Разлика: Комбинация vs Вариация</div>
+          <div class="compare-table">
+            <div class="compare-row compare-header">
+              <div>Пример</div><div>Ред важен?</div><div>Формула</div>
+            </div>
+            <div class="compare-row">
+              <div>Избор на 2 от {А, Б, В}</div><div class="tag tag-no">Не</div><div>C(3,2) = 3</div>
+            </div>
+            <div class="compare-row">
+              <div>Наредба на 2 от {А, Б, В}</div><div class="tag tag-yes">Да</div><div>V(3,2) = 6</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VARIATIONS -->
+      <div class="theory-section" id="theory-V" hidden>
+        <div class="theory-card">
+          <div class="theory-badge badge-V">V</div>
+          <h2 class="theory-heading">Вариации</h2>
+          <p class="theory-lead">Вариацията е наредба на <em>k елемента</em> от n, при която <strong>редът има значение</strong> — избираме само k от всичките n.</p>
+
+          <div class="formula-block">
+            <div class="formula-big">V(n, k) = n! / (n−k)!</div>
+            <div class="formula-exp">Еквивалентно: V(n,k) = n × (n−1) × … × (n−k+1)</div>
+          </div>
+
+          <div class="theory-section-label">Кога използваме?</div>
+          <p>Когато <strong>избираме и нареждаме</strong> — важно е и кои са избрани, и в какъв ред.</p>
+
+          <div class="examples-grid">
+            <div class="example-card">
+              <div class="example-icon">🔐</div>
+              <div class="example-title">PIN код</div>
+              <div class="example-body">4-цифрен PIN от цифри 1–9 (без повторение). V(9,4) = 3024 различни кода.</div>
+            </div>
+            <div class="example-card">
+              <div class="example-icon">🥇</div>
+              <div class="example-title">Медали</div>
+              <div class="example-body">8 спортисти, 3 медала (злато/сребро/бронз). V(8,3) = 336 начина.</div>
+            </div>
+            <div class="example-card">
+              <div class="example-icon">📸</div>
+              <div class="example-title">Снимка</div>
+              <div class="example-body">10 приятели, 4 места за снимка. V(10,4) = 5040 наредби.</div>
+            </div>
+          </div>
+
+          <div class="theory-section-label">Връзка между трите</div>
+          <div class="relation-box">
+            <div class="relation-row"><span class="rel-formula">P(n) = V(n, n)</span><span class="rel-desc">Вариация на всички = Пермутация</span></div>
+            <div class="relation-row"><span class="rel-formula">V(n, k) = C(n, k) × k!</span><span class="rel-desc">Вариация = Комбинация × наредба на избраните</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PRACTICE TAB ==================== -->
+    <section class="tab-panel" id="tab-practice" role="tabpanel" hidden>
+      <div class="panel-header">
+        <h1 class="panel-title">Задачи</h1>
+        <p class="panel-subtitle">Провери знанията си — 39 задачи по три теми и три нива.</p>
+      </div>
+
+      <div class="practice-layout">
+        <div class="practice-sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-label">Тема</div>
+            <button class="filter-btn active" data-filter-topic="all">Всички</button>
+            <button class="filter-btn" data-filter-topic="P">Пермутации</button>
+            <button class="filter-btn" data-filter-topic="C">Комбинации</button>
+            <button class="filter-btn" data-filter-topic="V">Вариации</button>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-label">Ниво</div>
+            <button class="filter-btn active" data-filter-level="all">Всички</button>
+            <button class="filter-btn" data-filter-level="easy">🟢 Лесно</button>
+            <button class="filter-btn" data-filter-level="medium">🟡 Средно</button>
+            <button class="filter-btn" data-filter-level="hard">🔴 Трудно</button>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-label">Прогрес</div>
+            <div class="progress-stats" id="progress-stats">
+              <div class="stat-row"><span>Решени</span><span id="stat-solved">0</span></div>
+              <div class="stat-row"><span>Общо</span><span>39</span></div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" id="sidebar-progress-fill"></div></div>
+            </div>
+            <button class="reset-btn" id="reset-progress">Нулирай прогреса</button>
+          </div>
+        </div>
+
+        <div class="practice-main">
+          <div class="tasks-list" id="tasks-list"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
