@@ -931,18 +931,112 @@ body {
 }
 
 /* ===== RESPONSIVE ===== */
+
+/* --- Tablet: ≤ 860px --- */
 @media (max-width: 860px) {
-  .calc-layout { grid-template-columns: 1fr; }
-  .practice-layout { grid-template-columns: 1fr; }
-  .practice-sidebar { position: static; }
-  .examples-grid { grid-template-columns: 1fr; }
+  /* Header */
   .header-inner { gap: 1rem; }
   .logo-text { display: none; }
   .progress-pill { display: none; }
+
+  /* Tab nav — allow horizontal scroll on narrow screens */
+  .tab-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .tab-nav::-webkit-scrollbar { display: none; }
+  .tab-btn { white-space: nowrap; }
+
+  /* Layouts → single column */
+  .calc-layout { grid-template-columns: 1fr; }
+  .practice-layout { grid-template-columns: 1fr; }
+  .practice-sidebar { position: static; }
+  .examples-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Theory nav scroll */
+  .theory-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    flex-wrap: nowrap;
+    padding-bottom: 2px;
+  }
+  .theory-nav::-webkit-scrollbar { display: none; }
+  .theory-pill { white-space: nowrap; flex-shrink: 0; }
+
+  /* Theory card */
+  .theory-card { padding: 1.5rem 1.5rem; }
+  .theory-heading { font-size: 26px; }
+
+  /* Relation row — wrap on tablet */
+  .relation-row { flex-wrap: wrap; gap: 8px; }
+  .rel-formula { min-width: unset; width: 100%; }
+
+  /* Compare table — allow scroll */
+  .compare-table { overflow-x: auto; }
 }
 
+/* --- Mobile: ≤ 580px --- */
 @media (max-width: 580px) {
-  .tab-btn { padding: 6px 10px; font-size: 13px; }
-  .panel-title { font-size: 28px; }
-  .theory-card { padding: 1.25rem 1rem; }
+  /* Header */
+  .header-inner { padding: 0 1rem; gap: 0.5rem; height: 72px; }
+
+  /* Tab nav — push to the right */
+  .tab-nav { justify-content: flex-end; }
+  .tab-btn { padding: 10px 18px; font-size: 15px; gap: 6px; }
+  .tab-icon { font-size: 17px; }
+
+  /* Main content */
+  .main-content { padding: 1.25rem 1rem 3rem; }
+
+  /* Panel titles */
+  .panel-title { font-size: 26px; }
+  .panel-header { margin-bottom: 1.25rem; }
+
+  /* Examples grid → single column */
+  .examples-grid { grid-template-columns: 1fr; }
+
+  /* Theory card */
+  .theory-card { padding: 1.25rem 1rem; border-radius: var(--radius-lg); }
+  .theory-heading { font-size: 22px; }
+  .theory-lead { font-size: 15px; }
+
+  /* Formula block */
+  .formula-block { padding: 1rem 1.25rem; }
+  .formula-big { font-size: 17px; }
+
+  /* Mode selector — 2 columns on mobile */
+  .mode-selector { flex-direction: column; }
+
+  /* Answer row — stack input and button */
+  .answer-row { flex-direction: column; align-items: stretch; }
+  .check-btn { width: 100%; text-align: center; }
+
+  /* Result number — smaller on mobile */
+  .result-number { font-size: 42px; }
+
+  /* Task header */
+  .task-header { padding: 0.875rem 1rem; }
+  .task-solve-area { padding: 0 1rem 1rem; }
+
+  /* History row — wrap long expressions */
+  .history-row { flex-wrap: wrap; gap: 4px; }
+  .history-expr { word-break: break-all; }
+
+  /* Visual tree — ensure horizontal scroll */
+  .visual-tree { padding: 1rem 0.75rem; }
+  .tree-row { gap: 4px; flex-wrap: wrap; }
+
+  /* Compare table */
+  .compare-row { grid-template-columns: 1.5fr 1fr 1fr; }
+  .compare-row > div { padding: 8px 10px; }
+
+  /* Steps */
+  .steps-body { padding: 0 12px 14px; }
+  .steps-header { padding: 12px 14px; }
+
+  /* Reset button full width */
+  .reset-btn { width: 100%; text-align: center; }
 }
